@@ -7,7 +7,7 @@ export default class Header extends Component {
         return (
             <View style = {styles.header}>
                 <Text style = {styles.title}>
-                    Same dices
+                    Mini-Yatzy
                 </Text>
             </View>
         )

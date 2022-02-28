@@ -8,13 +8,17 @@ import { render } from 'react-dom';
 
 let board = [];
 const NBR_OF_DICES = 5;
-const NBR_OF_THROWS = 5;
+const NBR_OF_THROWS = 3;
+const BONUS = 63;
 
 export default function Gameboard() {
 
     const [nbrOfThrowsLeft, setNbrOfThrowsLeft] = useState(NBR_OF_THROWS);
     const [status, setStatus] = useState('');
     const [selectedDices, setSelectedDices] = useState(new Array(NBR_OF_DICES).fill(false));
+    const [buttonTxt, setButtonTxt] = useState();
+    const [total, setTotal] = useState(0);
+    const [points, setPoints] = useState(BONUS);
 
 
     function getDiceColor(i) {
@@ -44,21 +48,25 @@ export default function Gameboard() {
     function checkWinner() {
         if (board.every((val, i, arr) => val === arr[0]) && nbrOfThrowsLeft > 0) {
             setStatus('YOU WON');
+            setButtonTxt('New game');
         } else if (board.every((val, i, arr) => val === arr[0]) && nbrOfThrowsLeft === 0) {
             setStatus('You won, game over');
             setSelectedDices(new Array(NBR_OF_DICES).fill(false));
+            setButtonTxt('New game');
         } else if (nbrOfThrowsLeft === 0) {
             setStatus('Game over');
             setSelectedDices(new Array(NBR_OF_DICES).fill(false));
+            setButtonTxt('New game');
         } else {
             setStatus('Keep on throwing');
+            setButtonTxt('Throw dices');
         }
     }
 
     useEffect(() => {
         checkWinner();
         if (nbrOfThrowsLeft === NBR_OF_THROWS) {
-            setStatus('Game has not started');
+            setStatus('Start the game');
         }
         if (nbrOfThrowsLeft < 0) {
             setNbrOfThrowsLeft(NBR_OF_THROWS-1);
@@ -88,8 +96,10 @@ export default function Gameboard() {
             <Text style = {styles.gameinfo}>{status}</Text>
             <Pressable style = {styles.button}
                     onPress = {() => throwDices()}>
-                <Text style = {styles.buttonText}>Throw dices</Text>
+                <Text style = {styles.buttonText}>{buttonTxt}</Text>
             </Pressable>
+            <Text style = {styles.total}>Total: {total}</Text>
+            <Text>You are {points} points away from bonus.</Text>
         </View>
     )
 }
