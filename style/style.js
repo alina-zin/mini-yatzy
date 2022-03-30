@@ -43,7 +43,8 @@ export default StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center',
     fontSize: 20,
-    marginTop: 10
+    marginTop: 10,
+    marginBottom: 10
   },
   row: {
     marginTop: 20,

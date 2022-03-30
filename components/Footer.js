@@ -7,7 +7,7 @@ export default class Footer extends Component {
         return (
             <View style = {styles.footer}>
                 <Text style = {styles.author}>
-                    Author: Alina Z
+                    Author: Alina Zinchenko
                 </Text>
             </View>
         )
